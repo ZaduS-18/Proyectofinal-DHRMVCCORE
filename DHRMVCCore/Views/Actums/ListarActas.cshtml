@@ -1,0 +1,960 @@
+﻿@model Tuple<IEnumerable<DHRMVCCore.Models.Actum>, DHRMVCCore.Models.Actum>
+
+
+
+
+@{
+    ViewData["Title"] = "ListarActas";
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | DataTables</title>
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <!-- Incluye las bibliotecas jsPDF y html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+    <style>
+        .visualmente-deshabilitado {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="index3.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="navbar-search-block">
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+
+                <!-- Messages Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-comments"></i>
+                        <span class="badge badge-danger navbar-badge">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Brad Diesel
+                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">Call me whenever you can...</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        John Pierce
+                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">I got your message bro</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Nora Silvester
+                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">The subject goes here</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                    </div>
+                </li>
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span class="badge badge-warning navbar-badge">15</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-envelope mr-2"></i> 4 new messages
+                            <span class="float-right text-muted text-sm">3 mins</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-users mr-2"></i> 8 friend requests
+                            <span class="float-right text-muted text-sm">12 hours</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-file mr-2"></i> 3 new reports
+                            <span class="float-right text-muted text-sm">2 days</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+                        <i class="fas fa-th-large"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a asp-controller="Home" asp-action="RedirectToListarActums" class="brand-link">
+                <img src="../../dist/img/logo_bravoizquierdo.jpg" alt="DHR" class="brand-image elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">DHR</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <div class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="RedirectToListarActums" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Actas
+
+                                </p>
+                            </a>
+                        </li>
+                        @{
+                            var isAdmin3 = Context.User.HasClaim(c => c.Type == "Admin" && c.Value == "True");
+                            var isOficinaTecnica3 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "2"); // Asumiendo que "2" es el valor para Oficina Técnica
+                        }
+
+                        @if (isAdmin3 || isOficinaTecnica3)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="RedirectToListarUsuarios" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Perfiles
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="RedirectToListarRazonSocial" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Razones Sociales
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="RedirectToListarObras" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Obras
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="RedirectToListarFechaCierre" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Calendario
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="RedirectToListarEspecialidad" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Especialidades
+                                    </p>
+                                </a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Home" asp-action="Salir" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Cerrar Session
+                                </p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Listar Actas</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">DataTables</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+
+
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">LISTADO DE ACTAS</h3>
+
+                                </div>
+                                                        @if (isAdmin3 || isOficinaTecnica3)
+                        {
+                                <p>
+                                    <a asp-action="Create" class="btn btn-danger" style="width: 150px; height: 40px; margin-left: 20px;">Crear Acta</a>
+                                </p>
+                        }
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Crear Acta</h5>
+@*                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button> *@
+                                                @* <p>
+                                                    <a asp-action="Create" class="btn btn-danger" style="width: 150px; height: 40px; margin-left: 20px;">Crear Acta</a>
+                                                </p> *@
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Aquí va el formulario que has proporcionado -->
+                                                <form asp-action="CrearActa">
+                                                    
+
+                                                    <div class="form-group">
+                                                        <label asp-for="@Model.Item2.ObraIdObra" class="control-label"></label>
+                                                        <select asp-for="@Model.Item2.ObraIdObra" class="form-control" asp-items="ViewBag.ObraIdObra"></select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="@Model.Item2.RazonSocialIdRazonSocial" class="control-label"></label>
+                                                        <select asp-for="@Model.Item2.RazonSocialIdRazonSocial" class="form-control" asp-items="ViewBag.RazonSocialIdRazonSocial"></select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="@Model.Item2.EspecialidadIdEspecialidad" class="control-label"></label>
+                                                        <select asp-for="@Model.Item2.EspecialidadIdEspecialidad" class="form-control" asp-items="ViewBag.EspecialidadIdEspecialidad"></select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <!-- Nota: El botón de "Crear Acta" ya está en el formulario, así que puedes eliminar este si lo deseas -->
+                                                <button type="button" class="btn btn-danger">Crear Acta</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+@*                                 @{
+                                    Func<dynamic, bool> IsButtonEnabled = (item) =>
+                                    item.EncargadoCalidadIdEncargadocaliNavigation.Firma &&
+                                    item.JefeBodegaIdJefeBodegaNavigation.Firma &&
+                                    item.EspBimIdEspBimNavigation.Firma &&
+                                    item.AdministradorObraIdEncalidadNavigation.Firma &&
+                                    item.ExpertoPrevencionIdExpertoprevNavigation.Firma &&
+                                    item.OficinaTecnicaIdOfitecNavigation.Firma &&
+                                    item.JefeTerrenoIdJefeterrenoNavigation.Firma;
+                                } *@
+                                @{
+                                    Func<dynamic, List<string>> FirmasFaltantes = (item) =>
+                                    {
+                                        var faltantes = new List<string>();
+
+                                        if (!item.EncargadoCalidadIdEncargadocaliNavigation.Firma)
+                                            faltantes.Add("Firma de Encargado de Calidad");
+
+                                        if (!item.JefeBodegaIdJefeBodegaNavigation.Firma)
+                                            faltantes.Add("Firma de Jefe de Bodega");
+
+                                        if (!item.EspBimIdEspBimNavigation.Firma)
+                                            faltantes.Add("Firma de Especialista BIM");
+
+                                        if (!item.AdministradorObraIdEncalidadNavigation.Firma)
+                                            faltantes.Add("Firma de Administrador de Obra");
+
+                                        if (!item.ExpertoPrevencionIdExpertoprevNavigation.Firma)
+                                            faltantes.Add("Firma de Experto en Prevención");
+
+                                        if (!item.OficinaTecnicaIdOfitecNavigation.Firma)
+                                            faltantes.Add("Firma de Oficina Técnica");
+
+                                        if (!item.JefeTerrenoIdJefeterrenoNavigation.Firma)
+                                            faltantes.Add("Firma de Jefe de Terreno");
+
+                                        return faltantes;
+                                    };
+                                }
+
+
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <div class="d-flex justify-content">
+@*                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                                            Crear Acta
+                                        </button> *@
+                                    </div>
+
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID ACTA</th>
+                                                <th>OBRA</th>
+                                                <th>FECHA DE CREACION</th>
+                                                <th>RAZON SOCIAL</th>
+                                                <th>ESPECIALIDAD</th>
+                                                <th>R.U.T</th>
+                                                <th>ESTADO DE ACTA</th>
+                                                <th>ESTADO DE FIRMA</th> 
+                                                <th>ACCION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model.Item1)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.IdActa)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ObraIdObraNavigation.NombreObra)
+                                                    </td>
+                                                    <td>
+                                                        @item.FechaPresentacion.ToString("dd/MM/yyyy")
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.RazonSocialIdRazonSocialNavigation.NombreRs)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.EspecialidadIdEspecialidadNavigation.NombreEsp)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.RazonSocialIdRazonSocialNavigation.RutRs)
+                                                    </td>
+                                                    <td>
+                                                        @{
+                                                            var estadoActaValue = item.EstadoActa;
+                                                           
+                                                            string textColor = "";
+                                                            string texto = "";
+
+                                                            switch (estadoActaValue)
+                                                            {
+                                                                case 0:
+                                                                   
+                                                                    textColor = "color: #FFD700;";
+                                                                    texto = "Proceso";
+                                                                    break;
+                                                                case 1:
+                                                                   
+                                                                    textColor = "color: green;";
+                                                                    texto = "Finalizado";
+                                                                    break;
+                                                                case 2:
+                                                                   
+                                                                    textColor = "color: red;";
+                                                                    texto = "Expirado";
+                                                                    break;
+                                                            }
+                                                        }
+                                                        <span style="@textColor">@texto</span>
+                                                    </td>
+                                                    <td>
+                                                        @{
+                                                            var userHasRole1 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "1");
+
+                                                            if (userHasRole1)
+                                                            {
+                                                                var isFirmaValid = item.JefeTerrenoIdJefeterrenoNavigation.Firma == true;  // Verifica si Firma es igual a 1
+
+                                                                if (isFirmaValid)
+                                                                {
+                                                                    <span style="color: green;">Finalizado</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color: red;">Pendiente</span>
+                                                                }
+                                                            }
+                                                        }
+
+                                                        @{
+                                                            var userHasRole2 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "2");
+
+                                                            if (userHasRole2)
+                                                            {
+                                                                var isFirmaValid = item.OficinaTecnicaIdOfitecNavigation.Firma == true;  // Verifica si Firma es igual a 1
+
+                                                                if (isFirmaValid)
+                                                                {
+                                                                    <span style="color: green;">Finalizado</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color: red;">Pendiente</span>
+                                                                }
+                                                            }
+                                                        }
+                                                        @{
+                                                            var userHasRole3 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "3");
+
+                                                            if (userHasRole3)
+                                                            {
+                                                                var isFirmaValid = item.ExpertoPrevencionIdExpertoprevNavigation.Firma == true;  // Verifica si Firma es igual a 1
+
+                                                                if (isFirmaValid)
+                                                                {
+                                                                    <span style="color: green;">Finalizado</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color: red;">Pendiente</span>
+                                                                }
+                                                            }
+                                                        }
+                                                        @{
+                                                            var userHasRole4 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "4");
+
+                                                            if (userHasRole4)
+                                                            {
+                                                                var isFirmaValid = item.AdministradorObraIdEncalidadNavigation.Firma == true;  // Verifica si Firma es igual a 1
+
+                                                                if (isFirmaValid)
+                                                                {
+                                                                    <span style="color: green;">Finalizado</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color: red;">Pendiente</span>
+                                                                }
+                                                            }
+                                                        }
+
+                                                        @{
+                                                            var userHasRole5 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "8");
+
+                                                            if (userHasRole5)
+                                                            {
+                                                                var isFirmaValid = item.ObsObrasIdObservacionNavigation.Firma == true;  // Verifica si Firma es igual a 1
+
+                                                                if (isFirmaValid)
+                                                                {
+                                                                    <span style="color: green;">Finalizado</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color: red;">Pendiente</span>
+                                                                }
+                                                            }
+                                                        }
+                                                        @{
+                                                            var userHasRole6 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "6");
+
+                                                            if (userHasRole6)
+                                                            {
+                                                                var isFirmaValid = item.EspBimIdEspBimNavigation.Firma == true;  // Verifica si Firma es igual a 1
+
+                                                                if (isFirmaValid)
+                                                                {
+                                                                    <span style="color: green;">Finalizado</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color: red;">Pendiente</span>
+                                                                }
+                                                            }
+                                                        }
+                                                        @{
+                                                            var userHasRole7 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "7");
+
+                                                            if (userHasRole7)
+                                                            {
+                                                                var isFirmaValid = item.JefeBodegaIdJefeBodegaNavigation.Firma == true;  // Verifica si Firma es igual a 1
+
+                                                                if (isFirmaValid)
+                                                                {
+                                                                    <span style="color: green;">Finalizado</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color: red;">Pendiente</span>
+                                                                }
+                                                            }
+                                                        }
+
+                                                        @{
+                                                            var userHasRole8 = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "5");
+
+                                                            if (userHasRole8)
+                                                            {
+                                                                var isFirmaValid = item.AdministradorObraIdEncalidadNavigation.Firma == true;  // Verifica si Firma es igual a 1
+
+                                                                if (isFirmaValid)
+                                                                {
+                                                                    <span style="color: green;">Finalizado</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color: red;">Pendiente</span>
+                                                                }
+                                                            }
+                                                        }
+
+                                                        @{
+                                                            var isAdmin = Context.User.HasClaim(c => c.Type == "Admin" && c.Value == "True");
+
+                                                            if (isAdmin)
+                                                            {
+                                                                // Firma para Jefe de Terreno
+                                                                var isFirmaValidJefeTerreno = item.JefeTerrenoIdJefeterrenoNavigation.Firma == true;
+                                                                <span style="color: @(isFirmaValidJefeTerreno ? "green" : "red;");">
+                                                                    Jefe de Terreno: @(isFirmaValidJefeTerreno ? "Finalizado" : "Pendiente")
+                                                                </span>
+
+                                                                // Firma para Oficina Técnica
+                                                                var isFirmaValidOficinaTecnica = item.OficinaTecnicaIdOfitecNavigation.Firma == true;
+                                                                <span style="color: @(isFirmaValidOficinaTecnica ? "green" : "red;");">
+                                                                    Oficina Técnica: @(isFirmaValidOficinaTecnica ? "Finalizado" : "Pendiente")
+                                                                </span>
+
+                                                                // Firma para Experto Prevención
+                                                                var isFirmaValidExpertoPrevencion = item.ExpertoPrevencionIdExpertoprevNavigation.Firma == true;
+                                                                <span style="color: @(isFirmaValidExpertoPrevencion ? "green" : "red;");">
+                                                                    Experto Prevención: @(isFirmaValidExpertoPrevencion ? "Finalizado" : "Pendiente")
+                                                                </span>
+
+                                                                // Firma para Administrador de Obra
+                                                                var isFirmaValidAdministradorObra = item.AdministradorObraIdEncalidadNavigation.Firma == true;
+                                                                <span style="color: @(isFirmaValidAdministradorObra ? "green" : "red;");">
+                                                                    Administrador de Obra: @(isFirmaValidAdministradorObra ? "Finalizado" : "Pendiente")
+                                                                </span>
+
+                                                                // Firma para Observaciones de Administrador de Obra
+                                                                var isFirmaValidObsObras = item.ObsObrasIdObservacionNavigation.Firma == true;
+                                                                <span style="color: @(isFirmaValidObsObras ? "green" : "red;");">
+                                                                    Observaciones Adm. de Obra: @(isFirmaValidObsObras ? "Finalizado" : "Pendiente")
+                                                                </span>
+
+                                                                // Firma para Especialidades BIM
+                                                                var isFirmaValidEspBim = item.EspBimIdEspBimNavigation.Firma == true;
+                                                                <span style="color: @(isFirmaValidEspBim ? "green" : "red;");">
+                                                                    Especialidades BIM: @(isFirmaValidEspBim ? "Finalizado" : "Pendiente")
+                                                                </span>
+
+                                                                // Firma para Jefe de Bodega
+                                                                var isFirmaValidJefeBodega = item.JefeBodegaIdJefeBodegaNavigation.Firma == true;
+                                                                <span style="color: @(isFirmaValidJefeBodega ? "green" : "red;");">
+                                                                    Jefe de Bodega: @(isFirmaValidJefeBodega ? "Finalizado" : "Pendiente")
+                                                                </span>
+
+                                                                // Firma para encargado caliudad (repetido, ¿es correcto?)
+                                                                var isFirmaValidAdministradorObra2 = item.EncargadoCalidadIdEncargadocaliNavigation.Firma == true;
+                                                                <span style="color: @(isFirmaValidAdministradorObra2 ? "green" : "red;");">
+                                                                    Encargado de Calidad: @(isFirmaValidAdministradorObra2 ? "Finalizado" : "Pendiente")
+                                                                </span>
+                                                            }
+                                                        }
+
+
+
+
+
+                                                    </td>
+
+
+
+
+
+                                                    <td>
+                                                        @{
+                                                            var isAdmin1 = Context.User.HasClaim(c => c.Type == "Admin" && c.Value == "True");
+                                                        }
+
+                                                        @if (isAdmin1)
+                                                        {
+                                                            <a asp-action="Edit" class="btn btn-danger" asp-route-id="@item.IdActa">Editar</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+                                                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.IdActa">Borrar</a>
+                                                            @* <a asp-action="DownloadAsPdf" asp-route-id="@item.IdActa">Descargar Acta</a> *@
+                                                            
+
+                                                                                            
+                                                       @*  <a asp-action="Edit" asp-route-id="@item.IdActa">Edit</a> |
+                                                        <a asp-action="Details" asp-route-id="@item.IdActa">Details</a> |
+                                                        <a asp-action="Delete" asp-route-id="@item.IdActa">Delete</a>| *@
+                                                        <a asp-controller="JefeTerrenoes" asp-action="Edit" asp-route-id="@item.IdActa">Firma Jefe Terreno</a>
+                                                        <a asp-controller="AdministradorObras" asp-action="Edit" asp-route-id="@item.IdActa">Firma Administrador de obras</a>
+                                                        <a asp-controller="EncargadoCalidads" asp-action="Edit" asp-route-id="@item.IdActa">Firma Encargado de Calidad</a>
+                                                        <a asp-controller="EspBims" asp-action="Edit" asp-route-id="@item.IdActa">Firma Especialidades Bim</a>
+                                                        <a asp-controller="ExpertoPrevencions" asp-action="Edit" asp-route-id="@item.IdActa">Firma Experto en Prevencion</a>
+                                                        <a asp-controller="JefeBodegas" asp-action="Edit" asp-route-id="@item.IdActa">Firma Jefe de Bodega</a>
+                                                            var faltantes = FirmasFaltantes(item);
+                                                            <a asp-controller="ObsObras" asp-action="Edit" asp-route-id="@item.IdActa"
+                                                               class="btn btn-danger @(faltantes.Any() ? "visualmente-deshabilitado" : "")"
+                                                               data-firmas-faltantes="@string.Join(", ", faltantes)">
+                                                                Firma OBSERVACIONES ADMINISTRADOR DE OBRA
+                                                            </a>
+
+                                                        <a asp-controller="OficinaTecnicas" asp-action="Edit" asp-route-id="@item.IdActa">Firma Oficina Tecnica</a>
+                                                        }
+                                                        @{
+                                                            var isJefeTerreno = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "1");
+
+
+                                                        }
+
+                                                        @if (isJefeTerreno)
+                                                        {
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Edit" asp-route-id="@item.IdActa">Firma Jefe Terreno</a>
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Details" asp-route-id="@item.IdActa">Detalles</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+
+                                                         }
+                                                        @{
+                                                            var isAdministradorObras = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "5");
+                                                        }
+
+                                                        @if (isAdministradorObras)
+                                                        {
+                                                            <a asp-controller="AdministradorObras" class="btn btn-danger" asp-action="Edit" asp-route-id="@item.IdActa">Firma Administrador de obras</a>
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Details" asp-route-id="@item.IdActa">Detalles</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+                                                        }
+                                                        @{
+                                                            var isEncargadoCalidad = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "4");
+                                                        }
+
+                                                        @if (isEncargadoCalidad)
+                                                        {
+                                                            <a asp-controller="EncargadoCalidads" class="btn btn-danger" asp-action="Edit" asp-route-id="@item.IdActa">Firma Encargado de Calidad</a>
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Details" asp-route-id="@item.IdActa">Detalles</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+                                                        }
+                                                        @{
+                                                            var isEspecialidadesBim = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "6");
+                                                        }
+
+                                                        @if (isEspecialidadesBim)
+                                                        {
+                                                            <a asp-controller="EspBims" class="btn btn-danger" asp-action="Edit" asp-route-id="@item.IdActa">Firma Especialidades Bim</a>
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Details" asp-route-id="@item.IdActa">Detalles</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+                                                        }
+                                                        @{
+                                                            var isExpertoPrevencion = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "3");
+                                                        }
+
+                                                        @if (isExpertoPrevencion)
+                                                        {
+                                                            <a asp-controller="ExpertoPrevencions" class="btn btn-danger" asp-action="Edit" asp-route-id="@item.IdActa">Firma Experto en Prevencion</a>
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Details" asp-route-id="@item.IdActa">Detalles</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+                                                        }
+                                                        @{
+                                                            var isJefeBodega = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "7");
+                                                        }
+
+                                                        @if (isJefeBodega)
+                                                        {
+                                                            <a asp-controller="JefeBodegas" class="btn btn-danger" asp-action="Edit" asp-route-id="@item.IdActa">Firma Jefe de Bodega</a>
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Details" asp-route-id="@item.IdActa">Detalles</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+                                                        }
+
+                                                        @{
+                                                            var isAdministradorDeObra = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "8");
+                                                        }
+
+                                                        @if (isAdministradorDeObra)
+                                                        {
+                                                            var faltantes = FirmasFaltantes(item);
+                                                            <a asp-controller="ObsObras" asp-action="Edit" asp-route-id="@item.IdActa"
+                                                               class="btn btn-danger @(faltantes.Any() ? "visualmente-deshabilitado" : "")"
+                                                               data-firmas-faltantes="@string.Join(", ", faltantes)">
+                                                                Firma OBSERVACIONES ADMINISTRADOR DE OBRA
+                                                            </a>
+
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Details" asp-route-id="@item.IdActa">Detalles</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+                                                        }
+                                                        @{
+                                                            var isOficinaTecnica = Context.User.HasClaim(c => c.Type == "RolIdRol" && c.Value == "2");
+                                                        }
+
+                                                        @if (isOficinaTecnica)
+                                                        {
+                                                            <a asp-controller="OficinaTecnicas" class="btn btn-danger" asp-action="Edit" asp-route-id="@item.IdActa">Firma Oficina Técnica</a>
+                                                            <a asp-controller="JefeTerrenoes" class="btn btn-danger" asp-action="Details" asp-route-id="@item.IdActa">Detalles</a>
+                                                            <a asp-action="Details" class="btn btn-danger" asp-route-id="@item.IdActa">Imprimir</a>
+                                                        }
+
+
+
+
+
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                            
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID ACTA</th>
+                                                <th>OBRA</th>
+                                                <th>FECHA DE CREACION</th>
+                                                <th>RAZON SOCIAL</th>
+                                                <th>ESPECIALIDAD</th>
+                                                <th>R.U.T</th>
+                                                <th>ESTADO DE ACTA</th>
+                                                <th>ESTADO DE FIRMA</th> 
+                                                <th>ACCION</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <script>
+        async function downloadPDF(button) {
+            try {
+                const id = button.getAttribute('data-id'); // Obtienes el ID del acta desde el botón
+                const content = document.getElementById('acta-' + id); // El contenedor del acta a descargar
+
+                if (!content) {
+                    console.error('Elemento no encontrado en el DOM.');
+                    return;
+                }
+
+                try {
+                    const canvas = await html2canvas(content);
+                    const imgData = canvas.toDataURL('image/png');
+
+                    try {
+                        const { jsPDF } = window.jspdf;
+                        const pdf = new jsPDF({
+                            orientation: 'portrait',
+                            unit: 'px',
+                            format: [canvas.width, canvas.height]
+                        });
+
+                        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+                        pdf.save(`Acta-${id}.pdf`);
+                    } catch (pdfError) {
+                        console.error('Error generando el PDF:', pdfError);
+                    }
+                } catch (canvasError) {
+                    console.error('Error creando el canvas:', canvasError);
+                }
+            } catch (generalError) {
+                console.error('Error general en downloadPDF:', generalError);
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var disabledButtons = document.querySelectorAll('.visualmente-deshabilitado');
+            disabledButtons.forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var firmasFaltantes = button.getAttribute('data-firmas-faltantes');
+                    Swal.fire({
+                        title: 'Firmas Faltantes',
+                        text: 'Faltan las siguientes firmas: ' + firmasFaltantes,
+                        icon: 'error',
+                        confirmButtonText: 'Entendido'
+                    });
+                });
+            });
+        });
+    </script>
+
+
+    <!-- jQuery -->
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/plugins/jszip/jszip.min.js"></script>
+    <script src="~/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/dist/js/demo.js"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+</body>
+</html>
