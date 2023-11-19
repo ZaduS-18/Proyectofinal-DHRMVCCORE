@@ -1,7 +1,7 @@
 # Proyectofinal-DHRMVCCORE
  Proyecto de Bravo Izquierdo
 
--Automatización hoja de ruta para Bravo Izquierdo, el cual permite crear, edita y firmar actas.
+-Automatización hoja de ruta para Bravo Izquierdo, el cual permite crear, editar y firmar actas.
 
 -El proyecto todavia sigue en desarrollo.
 
